@@ -30,6 +30,9 @@ int main() {
     case 'A':
     case 'a':
     cout << "Input your paint brand: " << endl;
+    cin.ignore(); // clear the newline left from previous 
+    cin getline(cin, paint_brand); // gets the whole input from user
+
     cin >> paint_brand;
     cout << "Input your paint Price: " << endl;
     cin >> paint_price;
