@@ -10,10 +10,13 @@ int main() {
     double wall_paint_coverage_gallon = 350.0; //this is all just the initialized variables
     int number_of_walls;
     int number_of_rooms;
+    int number_of_windows;
+    int number_of_doors;
     string room_name;
     double total_area_project = 0.0;
 
-    cout << "Hello! This is your one stop to calculating" << endl; 
+    cout << "Hello! Welcome to the paint calculator!" << endl;
+    cout << "This is your one stop to calculating" << endl; 
     cout << "how much paint you would need, to paint as many room as you wish." << endl;  //intro words to application with instructions
     cout << "Please make a selection on which paint brand you wish to use" << endl;
 
@@ -31,7 +34,7 @@ int main() {
     case 'a':
     cout << "Input your paint brand: " << endl;
     cin.ignore(); // clear the newline left from previous 
-    cin getline(cin, paint_brand); // gets the whole input from user
+    getline(cin, paint_brand); // gets the whole input from user
 
     cin >> paint_brand;
     cout << "Input your paint Price: " << endl;
@@ -82,8 +85,14 @@ int main() {
     cin.ignore(); // just to ignore leftover space
     getline(cin, room_name); // just using a getline to grab the whole line of string and not just a portion from the user incase they input something like "Zeus's new cool room"
 
-    cout << "How many walls are in " << room_name << "?"; // just more basic questions that's important to know
+    cout << "How many walls are in " << room_name << "? "; // just more basic questions that's important to know
     cin >> number_of_walls;
+
+    cout << "How many windows are in " << room_name << "? ";
+    cin >> number_of_windows;
+
+    cout << "How many doors are in " << room_name << "? ";
+    cin >> number_of_doors;
 
     for (int x = 1; x <= number_of_walls; x++) {
         double wall_width = 0.0; // This is a regular for loop but since I used i already, I used x. The purpose for this for loop is to gather and update number of walls
@@ -96,7 +105,31 @@ int main() {
 
         total_area_Rooms += wall_width * wall_height;
     }
-    
+
+    for (int x = 1; x <= number_of_windows; x++) {
+        double window_width = 0.0; 
+        double window_height = 0.0;
+
+        cout << " Window " << x << " - - Enter width (feet): ";
+        cin >> window_width;
+        cout << " Window " << x << " - Enter height (feet): ";
+        cin >> window_height;
+
+        total_area_Rooms -= window_width * window_height;
+    }
+
+    for (int x = 1; x <= number_of_doors; x++) {
+        double door_width = 0.0; 
+        double door_height = 0.0;
+
+        cout << " Door " << x << " - - Enter width (feet): ";
+        cin >> door_width;
+        cout << " Door " << x << " - Enter height (feet): ";
+        cin >> door_height;
+
+        total_area_Rooms -= door_width * door_height;
+    }
+        
     
     double total_gallons_needed = total_area_Rooms / wall_paint_coverage_gallon;// Convert square feet to gallons, then rounds up to whole number.
     int total_containers_needed = static_cast<int>(ceil(total_gallons_needed));
@@ -107,11 +140,11 @@ int main() {
     cout << "Brand selected: " << paint_brand << endl;
     cout << "Price per gallon: $" << paint_price << endl;
     cout << "Total wall area that needs to be painted: " <<total_area_Rooms << " SQ ft" << endl;// just outputting the information to the user
-    cout << "Total gallons needed: " << total_gallons_needed << " Gallons" << endl;
+    cout << fixed << setprecision (2) << "Total gallons needed: " << total_gallons_needed << " Gallons" << endl;
     cout << "Total paint containers needed: " << total_containers_needed << endl;
-    cout << "Total cost: $" << total_cost << endl;
+    cout << fixed << setprecision (2) << "Total cost: $" << total_cost << endl;
 }
-
+    
     
     double project_gallons_needed = total_area_project / wall_paint_coverage_gallon; // logic for figuring out how much paint is needed. takes all the wall area and divides by paint coverage
     int project_containers_needed = static_cast<int>(ceil(project_gallons_needed)); // tells how many containers are needed, rounded of course
@@ -119,9 +152,12 @@ int main() {
 
     cout << "\n=============" << endl;
     cout << "Total wall area for all rooms: " << total_area_project << " Sq ft" << endl;
-    cout << fixed << setprecision (4) <<"Total gallons of paint needed for all rooms: " << project_gallons_needed << " Gallons" << endl;
+    cout << fixed << setprecision (2) <<"Total gallons of paint needed for all rooms: " << project_gallons_needed << " Gallons" << endl;
     cout << "Total paint containers needed for all rooms: " << project_containers_needed << endl;// here is where it gets fully outputted
     cout << fixed << setprecision (2) <<"Total cost for paint used for walls: $" << project_total_cost << endl;
     cout << "Total cost of needed paint: " << paint_price * project_containers_needed << endl;
+
+    cout << "\nThank you for using the paint calculator! We hope you have a great day!" << endl;
+    return 0;
     return 0;
 }
